@@ -19,6 +19,10 @@ class Word < ActiveRecord::Base
       # Create a new word by combining the letter + the reverse of the remaining letters
       # Add new word to anagrams array
       anagrams << letter + reverse_letters(remaining).join('')
+      potential_anagram = letter + reverse_letters
+      if Word.find_by_text(potential_anagram).present?
+        anagrams << potential_anagram
+      end
     end
  
     # Return anagrams array
